@@ -8,11 +8,11 @@ name = "mcp-claude-allowlist"
 version = "0.1.0"
 description = "MCP server exposing Claude Code allowed permissions from settings.json"
 readme = "README.md"
-license = { text = "MIT" }
+license = { text = "Apache-2.0" }
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
+    "License :: OSI Approved :: Apache Software License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",

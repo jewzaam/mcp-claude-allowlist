@@ -121,4 +121,4 @@ make coverage     # Run tests with coverage report
 
 ## License
 
-MIT
+Apache 2.0
