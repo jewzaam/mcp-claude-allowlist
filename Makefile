@@ -3,8 +3,9 @@
 .PHONY: check install install-dev install-no-deps uninstall clean format lint typecheck test test-verbose coverage
 
 # Use shared ~/.venv/ap if it exists, otherwise local .venv
-VENV_DIR ?= $(if $(wildcard $(HOME)/.venv/ap/bin/python),$(HOME)/.venv/ap,.venv)
-PYTHON := $(VENV_DIR)/bin/python
+# Support both Unix (bin/python) and Windows (Scripts/python) venv layouts
+VENV_DIR ?= $(if $(wildcard $(HOME)/.venv/ap/bin/python),$(HOME)/.venv/ap,$(if $(wildcard $(HOME)/.venv/ap/Scripts/python),$(HOME)/.venv/ap,.venv))
+PYTHON := $(if $(wildcard $(VENV_DIR)/bin/python),$(VENV_DIR)/bin/python,$(VENV_DIR)/Scripts/python)
 
 $(info venv: $(VENV_DIR))
 
@@ -13,7 +14,7 @@ check: format lint typecheck test coverage
 .DEFAULT_GOAL := check
 
 $(PYTHON):
-	python3 -m venv $(VENV_DIR)
+	python -m venv $(VENV_DIR)
 
 install: $(PYTHON)
 	$(PYTHON) -m pip install .
