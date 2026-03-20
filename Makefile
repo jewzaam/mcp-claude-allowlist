@@ -5,7 +5,7 @@
 # Use shared ~/.venv/ap if it exists, otherwise local .venv
 # Support both Unix (bin/python) and Windows (Scripts/python) venv layouts
 VENV_DIR ?= $(if $(wildcard $(HOME)/.venv/ap/bin/python),$(HOME)/.venv/ap,$(if $(wildcard $(HOME)/.venv/ap/Scripts/python),$(HOME)/.venv/ap,.venv))
-PYTHON := $(if $(wildcard $(VENV_DIR)/bin/python),$(VENV_DIR)/bin/python,$(VENV_DIR)/Scripts/python)
+PYTHON = $(if $(wildcard $(VENV_DIR)/Scripts/python),$(VENV_DIR)/Scripts/python,$(VENV_DIR)/bin/python)
 
 $(info venv: $(VENV_DIR))
 
