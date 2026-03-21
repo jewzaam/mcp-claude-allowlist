@@ -34,22 +34,32 @@ make install-dev
 
 ## Configure Claude Code
 
-Add the server using the Claude CLI:
+`make install` places the `mcp-claude-allowlist` executable inside the virtualenv. Claude Code needs the full path to find it — a bare command name only works if the venv is activated or on your `PATH`.
+
+**User-scoped** (available in all projects, stored in `~/.claude.json`):
 
 ```bash
-claude mcp add allowlist -- mcp-claude-allowlist
+# Linux / macOS
+claude mcp add --scope user allowlist -- /path/to/mcp-claude-allowlist/.venv/bin/mcp-claude-allowlist
+
+# Windows
+claude mcp add --scope user allowlist -- C:/path/to/mcp-claude-allowlist/.venv/Scripts/mcp-claude-allowlist.exe
 ```
 
-If you installed into a virtualenv, use the full path:
+**Project-scoped** (stored in `.mcp.json` in the project root):
 
 ```bash
-claude mcp add allowlist -- /path/to/.venv/bin/mcp-claude-allowlist
+# Linux / macOS
+claude mcp add --scope project allowlist -- /path/to/mcp-claude-allowlist/.venv/bin/mcp-claude-allowlist
+
+# Windows
+claude mcp add --scope project allowlist -- C:/path/to/mcp-claude-allowlist/.venv/Scripts/mcp-claude-allowlist.exe
 ```
 
-To add it globally (available in all projects):
+Verify the server is registered:
 
 ```bash
-claude mcp add --global allowlist -- mcp-claude-allowlist
+claude mcp list
 ```
 
 ## Tools
