@@ -18,8 +18,8 @@ check: format lint typecheck test coverage
 $(PYTHON):
 	python3 -m venv $(VENV_DIR)
 
-install: $(PYTHON)
-	$(PYTHON) -m pip install .
+install:
+	uv tool install --force .
 
 install-dev: $(PYTHON)
 	$(PYTHON) -m pip install -e ".[dev]"
