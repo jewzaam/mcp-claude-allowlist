@@ -17,6 +17,7 @@ This server reads the `permissions.allow` array from each file and exposes them 
 ## Requirements
 
 - Python 3.10+
+- [uv](https://docs.astral.sh/uv/) (recommended)
 
 ## Installation
 
@@ -26,6 +27,8 @@ cd mcp-claude-allowlist
 make install
 ```
 
+This uses `uv tool install` under the hood, giving the package its own isolated venv (under `~/.local/share/uv/tools/`) so other pip operations and Python upgrades can't break it. The binary is placed in `~/.local/bin/`.
+
 For development (includes test/lint tooling):
 
 ```bash
@@ -34,26 +37,22 @@ make install-dev
 
 ## Configure Claude Code
 
-`make install` places the `mcp-claude-allowlist` executable inside the virtualenv. Claude Code needs the full path to find it — a bare command name only works if the venv is activated or on your `PATH`.
-
-**User-scoped** (available in all projects, stored in `~/.claude.json`):
+**User-scoped** (available in all projects):
 
 ```bash
-# Linux / macOS
-claude mcp add --scope user allowlist -- /path/to/mcp-claude-allowlist/.venv/bin/mcp-claude-allowlist
+claude mcp add --scope user allowlist -- mcp-claude-allowlist
+```
 
-# Windows
-claude mcp add --scope user allowlist -- C:/path/to/mcp-claude-allowlist/.venv/Scripts/mcp-claude-allowlist.exe
+Alternatively, use `uvx` so Claude Code resolves the tool fresh from the local source each invocation (most resilient to breakage):
+
+```bash
+claude mcp add --scope user allowlist -- uvx --from /path/to/mcp-claude-allowlist mcp-claude-allowlist
 ```
 
 **Project-scoped** (stored in `.mcp.json` in the project root):
 
 ```bash
-# Linux / macOS
-claude mcp add --scope project allowlist -- /path/to/mcp-claude-allowlist/.venv/bin/mcp-claude-allowlist
-
-# Windows
-claude mcp add --scope project allowlist -- C:/path/to/mcp-claude-allowlist/.venv/Scripts/mcp-claude-allowlist.exe
+claude mcp add --scope project allowlist -- mcp-claude-allowlist
 ```
 
 Verify the server is registered:
